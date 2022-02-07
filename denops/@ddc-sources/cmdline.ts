@@ -18,11 +18,18 @@ export class Source extends BaseSource<{}> {
     sourceOptions: SourceOptions;
     completeStr: string;
   }): Promise<Candidate[]> {
-    let results = await fn.getcompletion(
-      args.denops,
-      args.context.input,
-      "cmdline",
-    ) as string[];
+    let results: string[] = [];
+
+    try {
+      results = await fn.getcompletion(
+        args.denops,
+        args.context.input,
+        "cmdline",
+      ) as string[];
+    } catch (_) {
+      // Ignore errors
+      //console.log(_);
+    }
     if (results.length == 0) {
       return [];
     }
