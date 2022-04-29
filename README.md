@@ -23,6 +23,9 @@ call ddc#custom#patch_global('sources', ['cmdline'])
 
 " Change source options
 call ddc#custom#patch_global('sourceOptions', {
-      \ 'cmdline': {'mark': 'cmdline'},
+      \   'cmdline': {
+      \     'mark': 'cmdline',
+      \     'isVolatile': v:true,
+      \   }
       \ })
 ```
