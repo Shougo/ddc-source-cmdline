@@ -2,9 +2,8 @@
 
 Command line completion for ddc.vim
 
-This source collects candidates from `getcompletion('cmdline')`.
-It is useful for command line completion.
-
+This source collects candidates from `getcompletion('cmdline')`. It is useful
+for command line completion.
 
 ## Required
 
@@ -12,11 +11,9 @@ It is useful for command line completion.
 
 https://github.com/vim-denops/denops.vim
 
-
 ### ddc.vim
 
 https://github.com/Shougo/ddc.vim
-
 
 ## Configuration
 
