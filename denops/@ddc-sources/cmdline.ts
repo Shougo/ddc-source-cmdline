@@ -27,7 +27,10 @@ export class Source extends BaseSource<Params> {
     const completionType = (await fn.exists(args.denops, "*getcmdcompletion"))
       ? (await args.denops.call("getcmdcompletion") as string)
       : "";
-    if (mode == "@" && completionType == "") {
+    if (
+      mode == "/" || mode == "?" || mode == ">" ||
+      (mode == "-" && completionType == "")
+    ) {
       // No completion
       return [];
     }
@@ -36,7 +39,11 @@ export class Source extends BaseSource<Params> {
       results = await fn.getcompletion(
         args.denops,
         args.context.input,
-        completionType == "" ? "cmdline" : completionType,
+        mode == "="
+          ? "expression"
+          : completionType == ""
+          ? "cmdline"
+          : completionType,
       ) as string[];
     } catch (_) {
       // Ignore errors
