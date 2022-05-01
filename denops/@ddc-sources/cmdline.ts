@@ -5,7 +5,6 @@ import {
   Item,
   SourceOptions,
 } from "https://deno.land/x/ddc_vim@v2.2.0/types.ts";
-import { GetCompletePositionArguments } from "https://deno.land/x/ddc_vim@v2.2.0/base/source.ts";
 import { Denops, fn } from "https://deno.land/x/ddc_vim@v2.2.0/deps.ts";
 import { Env } from "https://deno.land/x/env@v2.2.0/env.js";
 
@@ -14,23 +13,6 @@ const env = new Env();
 type Params = Record<never, never>;
 
 export class Source extends BaseSource<Params> {
-  async getCompletePosition(
-    args: GetCompletePositionArguments<Params>,
-  ): Promise<number> {
-    const mode = await fn.getcmdtype(args.denops);
-    if (mode == "/" || mode == "?" || mode == ">") {
-      // No completion
-      return Promise.resolve(-1);
-    }
-
-    if (mode == "=" || mode == "@") {
-      // From head
-      return Promise.resolve(0);
-    }
-
-    return super.getCompletePosition(args);
-  }
-
   async gather(args: {
     denops: Denops;
     context: Context;
@@ -41,11 +23,11 @@ export class Source extends BaseSource<Params> {
     let results: string[] = [];
 
     // Get completion type
-    const mode = await fn.getcmdtype(args.denops);
-    const completionType = (await fn.exists(args.denops, "*getcmdcompletion"))
-      ? (await args.denops.call("getcmdcompletion") as string)
-      : "";
-    if (mode == "@" && completionType == "") {
+    const cmdType = await fn.getcmdtype(args.denops);
+    if (
+      cmdType == "/" || cmdType == "?" || cmdType == ">" || cmdType == "=" ||
+      cmdType == "@"
+    ) {
       // No completion
       return [];
     }
@@ -54,11 +36,7 @@ export class Source extends BaseSource<Params> {
       results = await fn.getcompletion(
         args.denops,
         args.context.input,
-        mode == "="
-          ? "expression"
-          : completionType == ""
-          ? "cmdline"
-          : completionType,
+        "cmdline",
       ) as string[];
     } catch (_) {
       // Ignore errors
@@ -70,7 +48,7 @@ export class Source extends BaseSource<Params> {
 
     // Replace home directory.
     const home = env.get("HOME", "");
-    if (mode != "@" && home && home != "") {
+    if (home && home != "") {
       results = results.map((word) => word.replace(home, "~"));
     }
 
