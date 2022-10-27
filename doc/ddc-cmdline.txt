@@ -1,24 +1,24 @@
-*ddc-cmdline.txt*	cmdline completion for ddc.vim
+*ddc-source-cmdline.txt*	cmdline completion for ddc.vim
 
 Author: Shougo <Shougo.Matsu at gmail.com>
 License: MIT license
 
-CONTENTS					*ddc-cmdline-contents*
+CONTENTS					*ddc-source-cmdline-contents*
 
-Introduction		|ddc-cmdline-introduction|
-Install			|ddc-cmdline-install|
-Examples		|ddc-cmdline-examples|
+Introduction		|ddc-source-cmdline-introduction|
+Install			|ddc-source-cmdline-install|
+Examples		|ddc-source-cmdline-examples|
 
 
 ==============================================================================
-INTRODUCTION				*ddc-cmdline-introduction*
+INTRODUCTION				*ddc-source-cmdline-introduction*
 
 This source collects candidates from |getcompletion()|.
 It is useful for command line completion.
 
 
 ==============================================================================
-INSTALL						*ddc-cmdline-install*
+INSTALL						*ddc-source-cmdline-install*
 
 Please install both "ddc.vim" and "denops.vim".
 
@@ -27,7 +27,7 @@ https://github.com/vim-denops/denops.vim
 
 
 ==============================================================================
-EXAMPLES					*ddc-cmdline-examples*
+EXAMPLES					*ddc-source-cmdline-examples*
 >
 >
 	" Use cmdline source.

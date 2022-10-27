@@ -4,9 +4,9 @@ import {
   DdcOptions,
   Item,
   SourceOptions,
-} from "https://deno.land/x/ddc_vim@v2.2.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddc_vim@v2.2.0/deps.ts";
-import { Env } from "https://deno.land/x/env@v2.2.0/env.js";
+} from "https://deno.land/x/ddc_vim@v3.0.0/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddc_vim@v3.0.0/deps.ts";
+import { Env } from "https://deno.land/x/env@v2.2.1/env.js";
 
 const env = new Env();
 

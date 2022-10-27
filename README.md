@@ -1,4 +1,4 @@
-# ddc-cmdline
+# ddc-source-cmdline
 
 Command line completion for ddc.vim
 
