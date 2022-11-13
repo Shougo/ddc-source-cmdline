@@ -42,9 +42,6 @@ export class Source extends BaseSource<Params> {
       // Ignore errors
       //console.log(_);
     }
-    if (results.length == 0) {
-      return [];
-    }
 
     // Replace home directory.
     const home = env.get("HOME", "");
@@ -58,6 +55,18 @@ export class Source extends BaseSource<Params> {
       args.completeStr.startsWith("no") && args.context.input.startsWith("set")
     ) {
       results = results.map((word) => "no" + word);
+    }
+
+    // Filter for ":help".
+    // NOTE: getcompletion() returns non head matched items.
+    if (args.context.input.startsWith("help ")) {
+      const prefix = args.context.input.replace(/^help\s+/, "").toLowerCase();
+      results = results.filter(
+        (word) => word.toLowerCase().startsWith(prefix));
+    }
+
+    if (results.length == 0) {
+      return [];
     }
 
     let prefix = results[0].toLowerCase();
