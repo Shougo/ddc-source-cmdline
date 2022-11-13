@@ -4,8 +4,8 @@ import {
   DdcOptions,
   Item,
   SourceOptions,
-} from "https://deno.land/x/ddc_vim@v3.0.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddc_vim@v3.0.0/deps.ts";
+} from "https://deno.land/x/ddc_vim@v3.1.0/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddc_vim@v3.1.0/deps.ts";
 import { Env } from "https://deno.land/x/env@v2.2.1/env.js";
 
 const env = new Env();
@@ -50,6 +50,14 @@ export class Source extends BaseSource<Params> {
     const home = env.get("HOME", "");
     if (home && home != "") {
       results = results.map((word) => word.replace(home, "~"));
+    }
+
+    // Replace no- options.
+    // NOTE: getcompletion() does not return no- prefixed items.
+    if (
+      args.completeStr.startsWith("no") && args.context.input.startsWith("set")
+    ) {
+      results = results.map((word) => "no" + word);
     }
 
     let prefix = results[0].toLowerCase();
