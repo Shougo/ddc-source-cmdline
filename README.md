@@ -18,13 +18,11 @@ https://github.com/Shougo/ddc.vim
 ## Configuration
 
 ```vim
-" Use cmdline source.
 call ddc#custom#patch_global('sources', ['cmdline'])
 
-" Change source options
-call ddc#custom#patch_global('sourceOptions', {
-      \   'cmdline': {
-      \     'mark': 'cmdline',
+call ddc#custom#patch_global('sourceOptions', #{
+      \   cmdline: #{
+      \     mark: 'cmdline',
       \   }
       \ })
 ```
