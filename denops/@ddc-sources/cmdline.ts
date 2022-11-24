@@ -13,7 +13,7 @@ const env = new Env();
 type Params = Record<never, never>;
 
 export class Source extends BaseSource<Params> {
-  async gather(args: {
+  override async gather(args: {
     denops: Denops;
     context: Context;
     options: DdcOptions;
@@ -93,7 +93,7 @@ export class Source extends BaseSource<Params> {
     );
   }
 
-  params(): Params {
+  override params(): Params {
     return {};
   }
 }
