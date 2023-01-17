@@ -25,6 +25,9 @@ Please install both "ddc.vim" and "denops.vim".
 https://github.com/Shougo/ddc.vim
 https://github.com/vim-denops/denops.vim
 
+Note: If you need to get fuzzy matched items, you need to set 'wildoptions'
+option contain "fuzzy".
+
 
 ==============================================================================
 EXAMPLES					*ddc-source-cmdline-examples*
