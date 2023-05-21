@@ -32,7 +32,6 @@ option contain "fuzzy".
 ==============================================================================
 EXAMPLES					*ddc-source-cmdline-examples*
 >
->
 	call ddc#custom#patch_global('sources', ['cmdline'])
 	
 	call ddc#custom#patch_global('sourceOptions', #{
