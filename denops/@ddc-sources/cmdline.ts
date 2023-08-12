@@ -3,9 +3,10 @@ import {
   Context,
   DdcOptions,
   Item,
+  Previewer,
   SourceOptions,
-} from "https://deno.land/x/ddc_vim@v3.4.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddc_vim@v3.4.0/deps.ts";
+} from "https://deno.land/x/ddc_vim@v4.0.4/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddc_vim@v4.0.4/deps.ts";
 import { Env } from "https://deno.land/x/env@v2.2.3/env.js";
 
 const env = new Env();
@@ -91,6 +92,23 @@ export class Source extends BaseSource<Params> {
         ? { word: word.slice(0, -1), abbr: word }
         : { word }),
     );
+  }
+
+  override async getPreviewer(args: {
+    denops: Denops,
+    item: Item;
+  }): Promise<Previewer> {
+    const help = await fn.getcompletion(args.denops, args.item.word, "help");
+    if (help.length === 0) {
+      return {
+        kind: "empty",
+      };
+    } else {
+      return {
+        kind: "help",
+        tag: args.item.word,
+      };
+    }
   }
 
   override params(): Params {
