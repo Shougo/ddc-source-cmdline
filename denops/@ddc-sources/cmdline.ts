@@ -11,7 +11,7 @@ import { Env } from "https://deno.land/x/env@v2.2.3/env.js";
 
 const env = new Env();
 
-type Params = Record<never, never>;
+type Params = Record<string, never>;
 
 export class Source extends BaseSource<Params> {
   override async gather(args: {
