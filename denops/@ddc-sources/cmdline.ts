@@ -7,9 +7,6 @@ import {
   SourceOptions,
 } from "https://deno.land/x/ddc_vim@v4.0.4/types.ts";
 import { Denops, fn } from "https://deno.land/x/ddc_vim@v4.0.4/deps.ts";
-import { Env } from "https://deno.land/x/env@v2.2.3/env.js";
-
-const env = new Env();
 
 type Params = Record<string, never>;
 
@@ -45,7 +42,7 @@ export class Source extends BaseSource<Params> {
     }
 
     // Replace home directory.
-    const home = env.get("HOME", "");
+    const home = Deno.env.get("HOME");
     if (home && home != "") {
       results = results.map((word) => word.replace(home, "~"));
     }
