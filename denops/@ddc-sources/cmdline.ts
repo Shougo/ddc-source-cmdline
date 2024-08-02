@@ -1,12 +1,14 @@
 import {
   BaseSource,
-  Context,
-  DdcOptions,
-  Item,
-  Previewer,
-  SourceOptions,
-} from "https://deno.land/x/ddc_vim@v4.0.4/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddc_vim@v4.0.4/deps.ts";
+  type Context,
+  type DdcOptions,
+  type Item,
+  type Previewer,
+  type SourceOptions,
+} from "jsr:@shougo/ddc-vim@6.0.0/types";
+
+import type { Denops } from "jsr:@denops/core@^7.0.0";
+import * as fn from "jsr:@denops/std@7.0.1/function";
 
 type Params = Record<string, never>;
 
