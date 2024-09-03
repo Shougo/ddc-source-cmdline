@@ -1,14 +1,14 @@
 import {
-  BaseSource,
   type Context,
   type DdcOptions,
   type Item,
   type Previewer,
   type SourceOptions,
-} from "jsr:@shougo/ddc-vim@6.0.0/types";
+} from "jsr:@shougo/ddc-vim@~7.0.0/types";
+import { BaseSource } from "jsr:@shougo/ddc-vim@~7.0.0/source";
 
-import type { Denops } from "jsr:@denops/core@^7.0.0";
-import * as fn from "jsr:@denops/std@7.0.1/function";
+import type { Denops } from "jsr:@denops/core@~7.0.0";
+import * as fn from "jsr:@denops/std@~7.1.1/function";
 
 type Params = Record<string, never>;
 
@@ -62,7 +62,8 @@ export class Source extends BaseSource<Params> {
     if (args.context.input.startsWith("help ")) {
       const prefix = args.context.input.replace(/^help\s+/, "").toLowerCase();
       results = results.filter(
-        (word) => word.toLowerCase().startsWith(prefix));
+        (word) => word.toLowerCase().startsWith(prefix),
+      );
     }
 
     if (results.length == 0) {
@@ -94,7 +95,7 @@ export class Source extends BaseSource<Params> {
   }
 
   override async getPreviewer(args: {
-    denops: Denops,
+    denops: Denops;
     item: Item;
   }): Promise<Previewer> {
     const help = await fn.getcompletion(args.denops, args.item.word, "help");
