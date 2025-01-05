@@ -4,11 +4,11 @@ import {
   type Item,
   type Previewer,
   type SourceOptions,
-} from "jsr:@shougo/ddc-vim@~7.0.0/types";
-import { BaseSource } from "jsr:@shougo/ddc-vim@~7.0.0/source";
+} from "jsr:@shougo/ddc-vim@~9.1.0/types";
+import { BaseSource } from "jsr:@shougo/ddc-vim@~9.1.0/source";
 
 import type { Denops } from "jsr:@denops/core@~7.0.0";
-import * as fn from "jsr:@denops/std@~7.1.1/function";
+import * as fn from "jsr:@denops/std@~7.4.0/function";
 
 type Params = Record<string, never>;
 
@@ -85,6 +85,18 @@ export class Source extends BaseSource<Params> {
       prefix = prefix.substring(args.completeStr.length);
       results = results.map((word) => word.substring(prefix.length));
     }
+
+    // NOTE: "**/foo.txt" result must be matched to "foo.txt"
+    const lastSlashIndex = args.completeStr.lastIndexOf("/");
+    const suffix = args.completeStr.substring(lastSlashIndex + 1).toLowerCase();
+    if (suffix != "" && suffix != args.completeStr) {
+      results = results.filter((result) => {
+        const lastSlashIndex = result.lastIndexOf("/");
+        const resultSuffix = result.substring(lastSlashIndex + 1).toLowerCase();
+        return resultSuffix.startsWith(suffix);
+      });
+    }
+
     return results.map(
       (
         word,
