@@ -89,10 +89,13 @@ export class Source extends BaseSource<Params> {
     // NOTE: "**/foo.txt" result must be matched to "foo.txt"
     const lastSlashIndex = args.completeStr.lastIndexOf("/");
     const suffix = args.completeStr.substring(lastSlashIndex + 1).toLowerCase();
-    if (suffix != "" && suffix != args.completeStr) {
+    if (suffix != "") {
       results = results.filter((result) => {
         const lastSlashIndex = result.lastIndexOf("/");
-        const resultSuffix = result.substring(lastSlashIndex + 1).toLowerCase();
+        const resultSuffix = result.endsWith("/")
+          ? result.substring(0, lastSlashIndex).toLowerCase()
+          : result.substring(lastSlashIndex + 1).toLowerCase();
+
         return resultSuffix.startsWith(suffix);
       });
     }
