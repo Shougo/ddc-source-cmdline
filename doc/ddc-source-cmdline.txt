@@ -31,7 +31,7 @@ option contain "fuzzy".
 
 ==============================================================================
 EXAMPLES					*ddc-source-cmdline-examples*
->
+>vim
 	call ddc#custom#patch_global('sources', ['cmdline'])
 	
 	call ddc#custom#patch_global('sourceOptions', #{

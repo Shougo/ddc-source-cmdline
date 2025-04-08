@@ -4,11 +4,11 @@ import {
   type Item,
   type Previewer,
   type SourceOptions,
-} from "jsr:@shougo/ddc-vim@~9.1.0/types";
-import { BaseSource } from "jsr:@shougo/ddc-vim@~9.1.0/source";
+} from "jsr:@shougo/ddc-vim@~9.4.0/types";
+import { BaseSource } from "jsr:@shougo/ddc-vim@~9.4.0/source";
 
 import type { Denops } from "jsr:@denops/core@~7.0.0";
-import * as fn from "jsr:@denops/std@~7.4.0/function";
+import * as fn from "jsr:@denops/std@~7.5.0/function";
 
 type Params = Record<string, never>;
 
