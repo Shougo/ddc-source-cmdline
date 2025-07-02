@@ -4,11 +4,11 @@ import {
   type Item,
   type Previewer,
   type SourceOptions,
-} from "jsr:@shougo/ddc-vim@~9.4.0/types";
-import { BaseSource } from "jsr:@shougo/ddc-vim@~9.4.0/source";
+} from "jsr:@shougo/ddc-vim@~9.5.0/types";
+import { BaseSource } from "jsr:@shougo/ddc-vim@~9.5.0/source";
 
 import type { Denops } from "jsr:@denops/core@~7.0.0";
-import * as fn from "jsr:@denops/std@~7.5.0/function";
+import * as fn from "jsr:@denops/std@~7.6.0/function";
 
 type Params = Record<string, never>;
 
@@ -32,10 +32,24 @@ export class Source extends BaseSource<Params> {
       return [];
     }
 
+    let input = args.context.input;
+    let lnum = await fn.line(args.denops, ".");
+
+    if (args.context.mode !== "c") {
+      while (input.trim().startsWith("\\") && lnum && lnum > 1) {
+        const prevLine = await fn.getline(args.denops, lnum - 1);
+
+        // Concat previous line.
+        input = prevLine + input.replace(/^\s*\\/, "");
+
+        lnum--;
+      }
+    }
+
     try {
       results = await fn.getcompletion(
         args.denops,
-        args.context.input,
+        input,
         "cmdline",
       ) as string[];
     } catch (_) {
@@ -77,8 +91,8 @@ export class Source extends BaseSource<Params> {
       }
     });
 
-    const input = args.context.input.toLowerCase();
-    while (!input.endsWith(prefix)) {
+    const compareInput = input.toLowerCase();
+    while (!compareInput.endsWith(prefix)) {
       prefix = prefix.slice(0, -1);
     }
     if (prefix != "" && prefix != args.completeStr) {
