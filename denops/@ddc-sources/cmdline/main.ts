@@ -57,12 +57,6 @@ export class Source extends BaseSource<Params> {
       //console.log(_);
     }
 
-    // Replace home directory.
-    const home = Deno.env.get("HOME");
-    if (home && home != "") {
-      results = results.map((word) => word.replace(home, "~"));
-    }
-
     // Replace no- options.
     // NOTE: getcompletion() does not return no- prefixed items.
     if (
